@@ -1,6 +1,6 @@
-export type Direction = 'front' | 'back' | 'left' | 'right';
+import type { PetStateKey } from '../timer/types';
 
-export type TimerStateKey = 'focus' | 'break' | 'complete' | 'skipped' | 'paused';
+export type Direction = 'front' | 'back' | 'left' | 'right';
 
 export interface AnimationSpec {
   file: string;
@@ -15,7 +15,7 @@ export interface PetManifest {
   frameSize: number;
   directions: Direction[];
   animations: Record<string, AnimationSpec>;
-  states: Record<TimerStateKey, string>;
+  states: Record<PetStateKey, string>;
 }
 
 export interface PetAnimation extends AnimationSpec {

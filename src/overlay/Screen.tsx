@@ -1,34 +1,49 @@
 import { getPet } from '../pets/registry';
+import type { TimerView } from '../timer/view';
 import { Pet } from './Pet';
+
+const petActions: Record<TimerView['petState'], string> = {
+  focus: 'sitting',
+  break: 'on a break',
+  paused: 'waiting with its back turned',
+  complete: 'celebrating',
+  skipped: 'startled',
+};
 
 interface ScreenProps {
   petId: string;
-  modeLabel: string;
-  time: string;
-  sessionsDone: number;
-  sessionsPerCycle: number;
-  progress: number; // 0..1, time remaining
+  view: TimerView;
 }
 
-export function Screen({ petId, modeLabel, time, sessionsDone, sessionsPerCycle, progress }: ScreenProps) {
+export function Screen({ petId, view }: ScreenProps) {
   const pet = getPet(petId);
+  const pipsLabel = `Session ${Math.min(view.sessionsDone + 1, view.sessionsPerCycle)} of ${view.sessionsPerCycle}`;
+
   return (
     <div className="bezel">
       <div className="screen">
         <div className="status">
-          <span>{modeLabel}</span>
-          <span className="pips" role="img" aria-label={`Session ${sessionsDone + 1} of ${sessionsPerCycle}`}>
-            {Array.from({ length: sessionsPerCycle }, (_, i) => (
-              <span key={i} className={i < sessionsDone ? 'pip done' : 'pip'} />
+          <span>{view.modeLabel}</span>
+          <span className="pips" role="img" aria-label={pipsLabel}>
+            {Array.from({ length: view.sessionsPerCycle }, (_, i) => (
+              <span key={i} className={i < view.sessionsDone ? 'pip done' : 'pip'} />
             ))}
           </span>
         </div>
-        <div className="timer">{time}</div>
+        <div className="timer" role="timer" aria-live="off">
+          {view.time}
+        </div>
         <div className="ground" aria-hidden="true">
-          <div className="progress" style={{ width: `${progress * 100}%` }} />
+          <div className="progress" style={{ width: `${view.progress * 100}%` }} />
         </div>
         <div className="pet-slot">
-          <Pet pet={pet} animation={pet.states.focus} direction="left" box={64} label={`${pet.name} on the timer screen`} />
+          <Pet
+            pet={pet}
+            animation={pet.states[view.petState]}
+            direction={view.petDirection}
+            box={64}
+            label={`${pet.name} ${petActions[view.petState]}`}
+          />
         </div>
       </div>
     </div>

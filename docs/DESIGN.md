@@ -84,7 +84,10 @@ Notes:
 
 - The pet faces left in every state except Paused, which uses the back view.
 - "Skipped" is a brief reaction. After the hurt animation plays once, fall back to the idle pose; the skipped session does not fill a pip.
-- A long break replaces the short break after every fourth focus session, then the pips reset.
+- A long break replaces the short break after every fourth focus session, then the pips reset (after the long break ends or is skipped).
+- Nothing starts on its own. After a session completes or is skipped, the next one waits for play.
+- Before the first session (and after Reset session) the device shows the queued session idle: `FOCUS` / `25:00`, play button labeled "Start focus", full progress line.
+- In dev, `?demo=focus|break|paused|complete|skipped` on the dev server URL opens straight into that state.
 
 ## 3. Sprites
 
