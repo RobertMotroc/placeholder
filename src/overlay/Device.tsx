@@ -11,10 +11,11 @@ interface DeviceProps {
   locked: boolean; // "Lock position": the shell no longer drags the window
   onPlayPause: () => void;
   onSkip: () => void;
+  onSettings: () => void;
 }
 
 // The egg-shaped shell. Any primary-button press outside the buttons drags the window.
-export function Device({ view, petId, animatePet, locked, onPlayPause, onSkip }: DeviceProps) {
+export function Device({ view, petId, animatePet, locked, onPlayPause, onSkip, onSettings }: DeviceProps) {
   const onMouseDown = (e: MouseEvent) => {
     if (locked || e.button !== 0 || (e.target as Element).closest('button')) return;
     startDragging();
@@ -29,13 +30,13 @@ export function Device({ view, petId, animatePet, locked, onPlayPause, onSkip }:
     <div className={locked ? 'shell locked' : 'shell'} onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
       <div className="gloss" aria-hidden="true" />
       <Screen petId={petId} view={view} animatePet={animatePet} />
-      {/* Settings opens the settings window, which arrives in milestone 5. */}
       <DeviceButtons
         running={view.running}
         playLabel={view.playLabel}
         skipLabel={view.skipLabel}
         onPlayPause={onPlayPause}
         onSkip={onSkip}
+        onSettings={onSettings}
       />
     </div>
   );

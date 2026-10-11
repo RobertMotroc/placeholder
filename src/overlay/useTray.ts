@@ -27,6 +27,7 @@ export function useTray(model: TrayModel, actions: TrayActions): void {
       setAlwaysOnTop: call('setAlwaysOnTop'),
       setLockPosition: call('setLockPosition'),
       setPet: call('setPet'),
+      openSettings: call('openSettings'),
       quit: call('quit'),
     };
 

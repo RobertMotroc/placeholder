@@ -71,5 +71,9 @@ export function timerReducer(state: TimerState, action: TimerAction): TimerState
       return advance(state, 'skipped');
     case 'reset':
       return { ...state, status: 'idle', endsAt: null, remainingMs: durationMs(state.config, state.kind) };
+    case 'configure':
+      // New lengths apply to sessions that haven't started. A running or paused session keeps its length.
+      if (state.status === 'running' || state.status === 'paused') return { ...state, config: action.config };
+      return { ...state, config: action.config, remainingMs: durationMs(action.config, state.kind) };
   }
 }

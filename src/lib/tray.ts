@@ -15,6 +15,7 @@ export interface TrayActions {
   setAlwaysOnTop(on: boolean): void;
   setLockPosition(on: boolean): void;
   setPet(id: string): void;
+  openSettings(): void;
   quit(): void;
 }
 
@@ -72,7 +73,7 @@ export function createTray(actions: TrayActions, pets: { id: string; name: strin
       petItems.set(pet.id, await CheckMenuItem.new({ id: `pet-${pet.id}`, text: pet.name, checked: false, action }));
     }
     const petMenu = await Submenu.new({ id: 'pets', text: 'Change pet', items: [...petItems.values()] });
-    const settings = await MenuItem.new({ id: 'settings', text: 'Settings', enabled: false }); // milestone 5
+    const settings = await MenuItem.new({ id: 'settings', text: 'Settings', action: () => actions.openSettings() });
     const quit = await MenuItem.new({ id: 'quit', text: 'Quit', action: () => actions.quit() });
 
     const menu = await Menu.new({

@@ -111,6 +111,22 @@ describe('timerReducer', () => {
     expect(s).toMatchObject({ status: 'idle', kind: 'focus', endsAt: null, remainingMs: 25 * MIN });
   });
 
+  it('configure updates a session that has not started', () => {
+    const config = { ...defaultConfig, focusMin: 40 };
+    expect(run([{ type: 'configure', config }])).toMatchObject({ remainingMs: 40 * MIN, config });
+    const queuedBreak = finishSession(initialTimerState(), T0);
+    expect(timerReducer(queuedBreak, { type: 'configure', config: { ...config, shortBreakMin: 8 } }).remainingMs).toBe(8 * MIN);
+  });
+
+  it('configure leaves a running or paused session alone, and the next session uses the new length', () => {
+    const config = { ...defaultConfig, focusMin: 40, shortBreakMin: 8 };
+    const running = run([{ type: 'play', now: T0 }, { type: 'configure', config }]);
+    expect(running.endsAt).toBe(T0 + 25 * MIN);
+    const paused = run([{ type: 'play', now: T0 }, { type: 'pause', now: T0 + MIN }, { type: 'configure', config }]);
+    expect(paused.remainingMs).toBe(24 * MIN);
+    expect(timerReducer(running, { type: 'tick', now: T0 + 25 * MIN }).remainingMs).toBe(8 * MIN);
+  });
+
   it('uses the configured lengths', () => {
     const config = { ...defaultConfig, focusMin: 50, shortBreakMin: 10 };
     const s = finishSession(initialTimerState(config), T0);

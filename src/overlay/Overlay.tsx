@@ -1,12 +1,12 @@
 import { useLayoutEffect, useRef, useState } from 'react';
-import { quitApp, setAlwaysOnTop, setOverlayVisible } from '../lib/window';
-import type { Settings, SettingKey } from '../settings/settings';
+import { openSettings, quitApp, setAlwaysOnTop, setOverlayVisible } from '../lib/window';
+import type { Settings } from '../settings/settings';
 import { applyTheme } from '../theme/applyTheme';
 import { themes } from '../theme/themes';
 import { trayStatus } from '../timer/view';
 import { Device } from './Device';
 import { useReducedMotion } from './useReducedMotion';
-import { useSettings } from './useSettings';
+import { useSettings, type UpdateSetting } from '../settings/useSettings';
 import { useTimer } from './useTimer';
 import { useTray } from './useTray';
 
@@ -19,7 +19,7 @@ export function Overlay() {
 
 interface OverlayAppProps {
   settings: Settings;
-  update: <K extends SettingKey>(key: K, value: Settings[K]) => void;
+  update: UpdateSetting;
 }
 
 function OverlayApp({ settings, update }: OverlayAppProps) {
@@ -31,6 +31,8 @@ function OverlayApp({ settings, update }: OverlayAppProps) {
   useLayoutEffect(() => applyTheme(themes[settings.theme] ?? themes.Lilac), [settings.theme]);
   // The window starts always-on-top (tauri.conf.json); undo that if the user turned it off.
   useLayoutEffect(() => setAlwaysOnTop(settings.alwaysOnTop), [settings.alwaysOnTop]);
+
+  const showSettings = () => openSettings().catch((err) => console.error('opening settings failed', err));
 
   const toggleOverlay = () => {
     const next = !visibleRef.current;
@@ -57,6 +59,7 @@ function OverlayApp({ settings, update }: OverlayAppProps) {
       setAlwaysOnTop: (on) => update('alwaysOnTop', on),
       setLockPosition: (on) => update('lockPosition', on),
       setPet: (id) => update('petId', id),
+      openSettings: showSettings,
       quit: quitApp,
     },
   );
@@ -69,6 +72,7 @@ function OverlayApp({ settings, update }: OverlayAppProps) {
       locked={settings.lockPosition}
       onPlayPause={playPause}
       onSkip={skip}
+      onSettings={showSettings}
     />
   );
 }

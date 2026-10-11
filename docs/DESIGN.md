@@ -193,12 +193,14 @@ Width 520. Surface `bezel`, `3px solid edge` outline, radius 22, lip shadow `0 6
 
 | Section | Controls |
 |---|---|
-| Pet | A wrapping grid of tiles, four per row, one per pet in the registry (13 today): a 64 x 64 portrait on the `sky` colour, a radio and the name. The portrait is the pet's idle frame 0, front row, at `max(1, floor(48 / frameSize))` (2x for 32px frames, 3x for the chick). Bull and calf are drawn at 1x and centred; their 64px frames have wide empty margins, so the portrait's clipping only cuts empty space. The selected tile has a `3px solid mark` border and `soft` fill. Below: "Animate the pet" checkbox. The mockup shows only four tiles; with 13 the settings body needs to scroll. |
+| Pet | A wrapping grid of tiles, four per row, one per pet in the registry (13 today): a 64 x 64 portrait on the `sky` colour, a radio and the name. The portrait is the pet's idle frame 0, front row, at `floor(64 / frameSize)` (2x for 32px frames, 4x for the chick, 1x for bull and calf), centred. The 2px border clips 2px from each edge, which only cuts the frames' empty margins. The selected tile has a `3px solid mark` border and `soft` fill. Below: "Animate the pet" checkbox. The mockup shows only four tiles; with 13 the settings body needs to scroll. |
 | Theme | A row of four tiles, each with a mini egg swatch in that theme's shell and button colours, a radio and the name. |
-| Timer | Number fields in two columns: Focus (min) 25, Short break (min) 5, Long break (min) 15, Sessions per cycle 4. |
-| Overlay | Size (Small / Medium / Large radios), Opacity slider (40 to 100, default 90), Always on top (on), Snap to screen corners (on), Launch at login (off). |
+| Timer | Number fields in two columns: Focus (min) 25, Short break (min) 5, Long break (min) 15, Sessions per cycle 4. Only whole numbers in range are saved (focus 1–180, short break 1–60, long break 1–120, sessions 1–12). A running or paused session keeps its length; the next one uses the new value. |
+| Overlay | Size (Small / Medium / Large radios), Opacity slider (40 to 100, default 90), Always on top (on), Lock position (off), Snap to screen corners (on), Launch at login (off). Milestone 5 builds Always on top and Lock position; the other four arrive with their features in milestone 6. |
 
 Footer: "Reset to defaults" (outlined) on the left, "Done" (filled with `btn`) on the right, both 44px tall.
+
+Every control saves as soon as it changes and the overlay applies it live (the windows sync through a `settings-changed` Tauri event). Done and the X only close the window. The window is 552 x 760, frameless and transparent, with the panel drawn in CSS; the title bar drags it. It opens from the overlay's settings button, the tray's Settings item, or the overlay's right-click menu, and an open one is brought forward instead of opened twice.
 
 The mockup's Fox, Cat and Frog tiles are placeholders. Build the tiles from the pet registry instead.
 

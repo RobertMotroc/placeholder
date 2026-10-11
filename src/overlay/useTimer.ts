@@ -19,6 +19,9 @@ export function useTimer(config: TimerConfig = defaultConfig) {
   const [state, dispatch] = useReducer(timerReducer, config, init);
   const [now, setNow] = useState(() => Date.now());
 
+  // Timer lengths changed in the settings window.
+  useEffect(() => dispatch({ type: 'configure', config }), [config]);
+
   // Ticks only re-read the clock; time left is always endsAt - Date.now(), so throttled ticks don't drift.
   useEffect(() => {
     if (state.status !== 'running') return;

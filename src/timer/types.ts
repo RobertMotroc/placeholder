@@ -29,4 +29,5 @@ export type TimerAction =
   | { type: 'toggle'; now: number }
   | { type: 'tick'; now: number }
   | { type: 'skip' }
-  | { type: 'reset' };
+  | { type: 'reset' }
+  | { type: 'configure'; config: TimerConfig };
