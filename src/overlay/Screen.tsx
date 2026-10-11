@@ -5,7 +5,7 @@ import { Pet } from './Pet';
 const petActions: Record<TimerView['petState'], string> = {
   focus: 'sitting',
   break: 'on a break',
-  paused: 'waiting with its back turned',
+  paused: 'waiting, facing you',
   complete: 'celebrating',
   skipped: 'startled',
 };

@@ -12,7 +12,7 @@ export interface TimerView {
   petState: PetStateKey;
   // Set when petState is a one-shot reaction: the pose to loop once it has played.
   petThen?: PetStateKey;
-  petDirection: 'left' | 'back';
+  petDirection: 'left' | 'front';
   // Changes on every state transition (e.g. two skips in a row), so the pet can restart its animation.
   phaseKey: string;
 }
@@ -61,7 +61,7 @@ export function timerView(state: TimerState, now: number): TimerView {
         progress: left / durationMs(state.config, state.kind),
         playLabel: 'Resume',
         petState: 'paused',
-        petDirection: 'back',
+        petDirection: 'front',
       };
     case 'complete':
       // Shows the queued session's full time; the pet celebrates once, then takes that session's pose.

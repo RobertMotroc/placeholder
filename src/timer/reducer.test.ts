@@ -154,7 +154,7 @@ describe('timerView: the five states from docs/DESIGN.md §2', () => {
       { type: 'pause', now: T0 + 7 * MIN },
     ]);
     expect(timerView(s, T0 + 99 * MIN)).toMatchObject({
-      modeLabel: 'PAUSED', time: '18:00', running: false, playLabel: 'Resume', petState: 'paused', petDirection: 'back',
+      modeLabel: 'PAUSED', time: '18:00', running: false, playLabel: 'Resume', petState: 'paused', petDirection: 'front',
     });
   });
 

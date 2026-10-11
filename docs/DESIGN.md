@@ -74,7 +74,7 @@ Pet scale = `floor(box / frameSize)`, never a fraction:
 |---|---|---|---|---|
 | Focus | `FOCUS` | time left | idle | pause |
 | Break | `BREAK` | time left | walk | pause |
-| Paused | `PAUSED` | frozen time left | idle, back turned | play |
+| Paused | `PAUSED` | frozen time left | idle, facing forward | play |
 | Session complete | `DONE` | next full session, e.g. `05:00` | run once, then the next session's pose (walk before a break, idle before focus) | play (starts the next session) |
 | Session skipped | `SKIPPED` | next full session, e.g. `25:00` | hurt (red flash) | play |
 
@@ -82,7 +82,7 @@ Each pet's manifest maps these states to its own animations (`states` in `manife
 
 Notes:
 
-- The pet faces left in every state except Paused, which uses the back view.
+- The pet faces left in every state except Paused, which uses the front view.
 - "Skipped" is a brief reaction. Skipping a focus session plays the hurt animation once, then falls back to the idle pose. Skipping a break shows `SKIPPED` with the idle pose and no hurt reaction. A skipped session never fills a pip.
 - A long break replaces the short break after every fourth focus session, then the pips reset (after the long break ends or is skipped).
 - Nothing starts on its own. After a session completes or is skipped, the next one waits for play.
@@ -118,7 +118,7 @@ The pack plays every animation at 150 ms per frame, which is where `fps: 6.67` c
 | chick | 16 | idle, walk | walk / idle |
 | bull, calf | 64 | idle, walk | walk / idle |
 
-Paused always uses the `back` row; every other state uses `left`. The packs' death animations are left out on purpose; they're still in `art-source/`.
+Paused always uses the `front` row; every other state uses `left`. The packs' death animations are left out on purpose; they're still in `art-source/`.
 
 CSS pattern for a sheet of N frames x 4 rows in a box of any size:
 
