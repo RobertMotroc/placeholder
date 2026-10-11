@@ -1,0 +1,30 @@
+{
+  "id": "chick",
+  "name": "Chick",
+  "frameSize": 16,
+  "directions": [
+    "front",
+    "back",
+    "left",
+    "right"
+  ],
+  "animations": {
+    "idle": {
+      "file": "idle.png",
+      "frames": 4,
+      "fps": 6.67
+    },
+    "walk": {
+      "file": "walk.png",
+      "frames": 6,
+      "fps": 6.67
+    }
+  },
+  "states": {
+    "focus": "idle",
+    "break": "walk",
+    "complete": "walk",
+    "skipped": "idle",
+    "paused": "idle"
+  }
+}

@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Themes</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&amp;family=Pixelify+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pet{background-image:url(/_blob/fdb70ff892869f1851e44f18da516aae);background-repeat:no-repeat;background-position:0 0;background-size:400% 100%;image-rendering:pixelated}
+</style>
+</helmet>
+<div style="width: 1872px; height: 660px; box-sizing: border-box; padding: 56px 64px 0; background: #F4F1F8; display: flex; gap: 48px; font-family: 'Nunito', sans-serif">
+  <sc-for list="{{themes}}" as="t" hint-placeholder-count="4">
+    <div style="width: 400px; display: flex; flex-direction: column; align-items: center; gap: 36px">
+      <div style="position: relative; width: 400px; height: 472px; box-sizing: border-box; padding-top: 74px; background: {{t.shell}}; border: 6px solid {{t.edge}}; border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%; box-shadow: 0 10px 0 {{t.edge}}; display: flex; flex-direction: column; align-items: center; gap: 24px">
+        <div aria-hidden="true" style="position: absolute; left: 68px; top: 28px; width: 88px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.55); transform: rotate(-24deg)"></div>
+        <div style="width: 296px; height: 264px; box-sizing: border-box; padding: 10px; background: {{t.bezel}}; border: 6px solid {{t.edge}}; border-radius: 36px; flex-shrink: 0">
+          <div style="position: relative; width: 264px; height: 232px; overflow: hidden; border-radius: 20px; background: {{t.sky}}; color: {{t.ink}}; font-family: 'Pixelify Sans', monospace; font-weight: 600">
+            <div style="position: absolute; left: 16px; right: 16px; top: 12px; display: flex; align-items: center; justify-content: space-between; font-size: 22px; line-height: 1; letter-spacing: 0.06em">
+              <span>FOCUS</span>
+              <span role="img" aria-label="Session 3 of 4" style="display: flex; gap: 6px">
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{t.ink}}; background: {{t.ink}}"></span>
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{t.ink}}; background: {{t.ink}}"></span>
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{t.ink}}"></span>
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{t.ink}}"></span>
+              </span>
+            </div>
+            <div style="position: absolute; left: 0; right: 0; top: 38px; text-align: center; font-size: 60px; line-height: 1">18:24</div>
+            <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 24px; background: {{t.ground}}">
+              <div style="width: 74%; height: 6px; background: {{t.accent}}"></div>
+            </div>
+            <div class="pet" role="img" aria-label="Hare sitting" style="position: absolute; left: 68px; bottom: 16px; width: 128px; height: 128px"></div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 24px">
+          <button type="button" aria-label="Pause" style="width: 56px; height: 56px; box-sizing: border-box; padding: 0; background: {{t.btn}}; border: 6px solid {{t.btnEdge}}; border-radius: 50%; color: {{t.btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="2" width="3" height="8"></rect><rect x="7" y="2" width="3" height="8"></rect></svg>
+          </button>
+          <button type="button" aria-label="Skip to break" style="width: 56px; height: 56px; box-sizing: border-box; margin-top: 12px; padding: 0; background: {{t.btn}}; border: 6px solid {{t.btnEdge}}; border-radius: 50%; color: {{t.btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="2" width="2" height="8"></rect><rect x="3" y="3" width="2" height="6"></rect><rect x="5" y="4" width="1" height="4"></rect><rect x="6" y="5" width="1" height="2"></rect><rect x="8" y="2" width="2" height="8"></rect></svg>
+          </button>
+          <button type="button" aria-label="Open settings" style="width: 56px; height: 56px; box-sizing: border-box; padding: 0; background: {{t.btn}}; border: 6px solid {{t.btnEdge}}; border-radius: 50%; color: {{t.btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="2" width="10" height="2"></rect><rect x="7" y="1" width="2" height="4"></rect><rect x="1" y="8" width="10" height="2"></rect><rect x="3" y="7" width="2" height="4"></rect></svg>
+          </button>
+        </div>
+      </div>
+      <div style="font-weight: 800; font-size: 24px; line-height: 1.2; color: #3F3A52; text-align: center">{{t.name}}</div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1872,"height":660}}'>
+class Component extends DCLogic {
+renderVals() {
+return { themes: [
+{ name: 'Lilac', shell: '#CDB8F6', edge: '#9A80D8', bezel: '#FFF6FC', btn: '#F9A1CF', btnEdge: '#D45F9C', btnInk: '#5A2348', sky: '#FBEFFF', ground: '#D9C2F7', ink: '#4B3A78', accent: '#C2559A' },
+{ name: 'Mint', shell: '#B8EBD4', edge: '#6FBF9F', bezel: '#FBFFF8', btn: '#FFE08A', btnEdge: '#D9A93A', btnInk: '#5A4410', sky: '#EFFBF1', ground: '#BFE8C6', ink: '#2F5A4A', accent: '#23896A' },
+{ name: 'Peach', shell: '#FFD0B8', edge: '#E89A78', bezel: '#FFFBF4', btn: '#A9DDF2', btnEdge: '#5FA9C9', btnInk: '#1F4A5E', sky: '#FFF4E6', ground: '#FFD9B0', ink: '#6B3F2A', accent: '#D9663A' },
+{ name: 'Starlight', shell: '#B9CFF7', edge: '#7C98DA', bezel: '#F6F9FF', btn: '#FFC2DD', btnEdge: '#E07FAE', btnInk: '#6A2449', sky: '#2E2A66', ground: '#46408F', ink: '#FFF1B5', accent: '#8EE3D9' }
+] };
+}
+}
+</script>
+</body>
+</html>

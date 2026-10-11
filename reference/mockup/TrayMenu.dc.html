@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tray menu</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&amp;family=Pixelify+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="position: relative; width: 400px; height: 700px; overflow: hidden; background: #F4F1F8; font-family: 'Nunito', sans-serif; color-scheme: light">
+
+  <div style="position: absolute; right: 32px; bottom: 66px; width: 304px; box-sizing: border-box; overflow: hidden; background: {{bezel}}; border: 3px solid {{edge}}; border-radius: 20px; box-shadow: 0 5px 0 {{edge}}; color: {{text}}; font-size: 15px; font-weight: 700; display: flex; flex-direction: column">
+    <div style="padding: 14px 16px; background: {{shell}}; display: flex; align-items: center; gap: 12px">
+      <div style="width: 56px; height: 56px; box-sizing: border-box; background: {{sky}}; border: 2px solid {{edge}}; border-radius: 14px; overflow: hidden; display: flex; align-items: flex-end; justify-content: center; flex-shrink: 0">
+        <img src="/_blob/92fe2001fb6c61bee48b01c0be790603" alt="" style="width: 48px; height: 48px; image-rendering: pixelated">
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 4px">
+        <div style="font-family: 'Pixelify Sans', monospace; font-weight: 600; font-size: 20px; line-height: 1">Pomodoro</div>
+        <div style="font-size: 13px; line-height: 1.2">Focus, 18:24 left</div>
+      </div>
+    </div>
+    <div style="padding: 6px 8px; display: flex; flex-direction: column">
+      <button type="button" style="height: 44px; box-sizing: border-box; padding: 0 12px; background: {{soft}}; border: 0; border-radius: 12px; color: {{text}}; font: inherit; text-align: left; cursor: pointer">Pause</button>
+      <button type="button" style="height: 44px; box-sizing: border-box; padding: 0 12px; background: transparent; border: 0; border-radius: 12px; color: {{text}}; font: inherit; text-align: left; cursor: pointer">Skip to break</button>
+      <button type="button" style="height: 44px; box-sizing: border-box; padding: 0 12px; background: transparent; border: 0; border-radius: 12px; color: {{text}}; font: inherit; text-align: left; cursor: pointer">Reset session</button>
+    </div>
+    <div aria-hidden="true" style="height: 2px; background: {{soft}}"></div>
+    <div style="padding: 6px 8px; display: flex; flex-direction: column">
+      <label style="height: 44px; box-sizing: border-box; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer">Show overlay<input type="checkbox" checked="{{ true }}" style="width: 18px; height: 18px; margin: 0; accent-color: {{mark}}"></label>
+      <label style="height: 44px; box-sizing: border-box; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer">Always on top<input type="checkbox" checked="{{ true }}" style="width: 18px; height: 18px; margin: 0; accent-color: {{mark}}"></label>
+      <label style="height: 44px; box-sizing: border-box; padding: 0 12px; display: flex; align-items: center; justify-content: space-between; gap: 12px; cursor: pointer">Lock position<input type="checkbox" checked="{{ false }}" style="width: 18px; height: 18px; margin: 0; accent-color: {{mark}}"></label>
+    </div>
+    <div aria-hidden="true" style="height: 2px; background: {{soft}}"></div>
+    <div style="padding: 6px 8px; display: flex; flex-direction: column">
+      <button type="button" style="height: 44px; box-sizing: border-box; padding: 0 12px; background: transparent; border: 0; border-radius: 12px; color: {{text}}; font: inherit; text-align: left; cursor: pointer">Change pet</button>
+      <button type="button" style="height: 44px; box-sizing: border-box; padding: 0 12px; background: transparent; border: 0; border-radius: 12px; color: {{text}}; font: inherit; text-align: left; cursor: pointer">Settings</button>
+      <button type="button" style="height: 44px; box-sizing: border-box; padding: 0 12px; background: transparent; border: 0; border-radius: 12px; color: {{text}}; font: inherit; text-align: left; cursor: pointer">Quit</button>
+    </div>
+  </div>
+
+  <div style="position: absolute; left: 0; right: 0; bottom: 0; height: 48px; box-sizing: border-box; padding: 0 18px; background: #161C19; display: flex; align-items: center; justify-content: flex-end; gap: 14px">
+    <div aria-hidden="true" style="width: 14px; height: 14px; border-radius: 3px; background: #3B4740"></div>
+    <div aria-hidden="true" style="width: 14px; height: 14px; border-radius: 3px; background: #3B4740"></div>
+    <div style="width: 36px; height: 36px; border-radius: 6px; background: #2A332E; display: flex; align-items: center; justify-content: center">
+      <img src="/_blob/92fe2001fb6c61bee48b01c0be790603" alt="Pomodoro tray icon" style="width: 24px; height: 24px; image-rendering: pixelated">
+    </div>
+    <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+      <div style="width: 40px; height: 6px; border-radius: 3px; background: #46544C"></div>
+      <div style="width: 58px; height: 6px; border-radius: 3px; background: #46544C"></div>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["Lilac","Mint","Peach","Starlight"],"default":"Lilac"},"$preview":{"width":400,"height":700}}'>
+class Component extends DCLogic {
+renderVals() {
+var themes = {
+Lilac: { shell: '#CDB8F6', edge: '#9A80D8', bezel: '#FFF6FC', sky: '#FBEFFF', text: '#4B3A78', soft: '#EBDDFB', mark: '#C2559A' },
+Mint: { shell: '#B8EBD4', edge: '#6FBF9F', bezel: '#FBFFF8', sky: '#EFFBF1', text: '#2F5A4A', soft: '#D9F3E1', mark: '#23896A' },
+Peach: { shell: '#FFD0B8', edge: '#E89A78', bezel: '#FFFBF4', sky: '#FFF4E6', text: '#6B3F2A', soft: '#FFE6CF', mark: '#C8552B' },
+Starlight: { shell: '#B9CFF7', edge: '#7C98DA', bezel: '#F6F9FF', sky: '#2E2A66', text: '#2E2A66', soft: '#DDE8FB', mark: '#5B6FD6' }
+};
+return themes[this.props.theme] || themes.Lilac;
+}
+}
+</script>
+</body>
+</html>

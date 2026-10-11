@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Widget states</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&amp;family=Pixelify+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pet{background-repeat:no-repeat;image-rendering:pixelated}
+.pet-idle{background-image:url(/_blob/fdb70ff892869f1851e44f18da516aae);background-size:400% 100%;background-position:0 0}
+.pet-back{background-image:url(/_blob/dd0dde7a791de9adbbd1e03d13a0cec2);background-size:400% 100%;background-position:0 0}
+.pet-run{background-image:url(/_blob/708815749a7cbfd1d2753e19f0df806b);background-size:500% 100%;background-position:75% 0}
+.pet-jump{background-image:url(/_blob/26334384b10bd971704ad0e391822a8d);background-size:600% 100%;background-position:80% 0}
+.pet-hurt{background-image:url(/_blob/069e6342160cadbfd93f9e43ffdb8376);background-size:400% 100%;background-position:66.66667% 0}
+</style>
+</helmet>
+<div style="width: 2320px; height: 680px; box-sizing: border-box; padding: 56px 64px 0; background: #F4F1F8; display: flex; gap: 48px; font-family: 'Nunito', sans-serif">
+  <sc-for list="{{states}}" as="s" hint-placeholder-count="5">
+    <div style="width: 400px; display: flex; flex-direction: column; align-items: center; gap: 36px">
+      <div style="position: relative; width: 400px; height: 472px; box-sizing: border-box; padding-top: 74px; background: {{s.shell}}; border: 6px solid {{s.edge}}; border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%; box-shadow: 0 10px 0 {{s.edge}}; display: flex; flex-direction: column; align-items: center; gap: 24px">
+        <div aria-hidden="true" style="position: absolute; left: 68px; top: 28px; width: 88px; height: 28px; border-radius: 50%; background: rgba(255, 255, 255, 0.55); transform: rotate(-24deg)"></div>
+        <div style="width: 296px; height: 264px; box-sizing: border-box; padding: 10px; background: {{s.bezel}}; border: 6px solid {{s.edge}}; border-radius: 36px; flex-shrink: 0">
+          <div style="position: relative; width: 264px; height: 232px; overflow: hidden; border-radius: 20px; background: {{s.sky}}; color: {{s.ink}}; font-family: 'Pixelify Sans', monospace; font-weight: 600">
+            <div style="position: absolute; left: 16px; right: 16px; top: 12px; display: flex; align-items: center; justify-content: space-between; font-size: 22px; line-height: 1; letter-spacing: 0.06em">
+              <span>{{s.mode}}</span>
+              <span role="img" aria-label="{{s.pipLabel}}" style="display: flex; gap: 6px">
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{s.ink}}; background: {{s.p1}}"></span>
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{s.ink}}; background: {{s.p2}}"></span>
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{s.ink}}; background: {{s.p3}}"></span>
+                <span style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid {{s.ink}}; background: {{s.p4}}"></span>
+              </span>
+            </div>
+            <div style="position: absolute; left: 0; right: 0; top: 38px; text-align: center; font-size: 60px; line-height: 1">{{s.time}}</div>
+            <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 24px; background: {{s.ground}}">
+              <div style="width: {{s.bar}}; height: 6px; background: {{s.accent}}"></div>
+            </div>
+            <div class="pet {{s.pet}}" role="img" aria-label="{{s.petLabel}}" style="position: absolute; left: 68px; bottom: 16px; width: 128px; height: 128px"></div>
+          </div>
+        </div>
+        <div style="display: flex; gap: 24px">
+          <button type="button" aria-label="{{s.mainLabel}}" style="width: 56px; height: 56px; box-sizing: border-box; padding: 0; background: {{s.btn}}; border: 6px solid {{s.btnEdge}}; border-radius: 50%; color: {{s.btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <sc-if value="{{s.running}}" hint-placeholder-val="{{ true }}">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="2" width="3" height="8"></rect><rect x="7" y="2" width="3" height="8"></rect></svg>
+            </sc-if>
+            <sc-if value="{{s.stopped}}" hint-placeholder-val="{{ false }}">
+              <svg aria-hidden="true" width="24" height="24" viewBox="0 0 12 12" fill="currentColor"><rect x="3" y="2" width="2" height="8"></rect><rect x="5" y="3" width="2" height="6"></rect><rect x="7" y="4" width="1" height="4"></rect><rect x="8" y="5" width="1" height="2"></rect></svg>
+            </sc-if>
+          </button>
+          <button type="button" aria-label="Skip" style="width: 56px; height: 56px; box-sizing: border-box; margin-top: 12px; padding: 0; background: {{s.btn}}; border: 6px solid {{s.btnEdge}}; border-radius: 50%; color: {{s.btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="2" width="2" height="8"></rect><rect x="3" y="3" width="2" height="6"></rect><rect x="5" y="4" width="1" height="4"></rect><rect x="6" y="5" width="1" height="2"></rect><rect x="8" y="2" width="2" height="8"></rect></svg>
+          </button>
+          <button type="button" aria-label="Open settings" style="width: 56px; height: 56px; box-sizing: border-box; padding: 0; background: {{s.btn}}; border: 6px solid {{s.btnEdge}}; border-radius: 50%; color: {{s.btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="2" width="10" height="2"></rect><rect x="7" y="1" width="2" height="4"></rect><rect x="1" y="8" width="10" height="2"></rect><rect x="3" y="7" width="2" height="4"></rect></svg>
+          </button>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: center; gap: 4px; text-align: center">
+        <div style="font-weight: 800; font-size: 24px; line-height: 1.2; color: #3F3A52">{{s.label}}</div>
+        <div style="font-weight: 600; font-size: 16px; line-height: 1.3; color: #6B6580">{{s.pose}}</div>
+      </div>
+    </div>
+  </sc-for>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["Lilac","Mint","Peach","Starlight"],"default":"Lilac"},"$preview":{"width":2320,"height":680}}'>
+class Component extends DCLogic {
+renderVals() {
+var themes = {
+Lilac: { shell: '#CDB8F6', edge: '#9A80D8', bezel: '#FFF6FC', btn: '#F9A1CF', btnEdge: '#D45F9C', btnInk: '#5A2348', sky: '#FBEFFF', ground: '#D9C2F7', ink: '#4B3A78', accent: '#C2559A' },
+Mint: { shell: '#B8EBD4', edge: '#6FBF9F', bezel: '#FBFFF8', btn: '#FFE08A', btnEdge: '#D9A93A', btnInk: '#5A4410', sky: '#EFFBF1', ground: '#BFE8C6', ink: '#2F5A4A', accent: '#23896A' },
+Peach: { shell: '#FFD0B8', edge: '#E89A78', bezel: '#FFFBF4', btn: '#A9DDF2', btnEdge: '#5FA9C9', btnInk: '#1F4A5E', sky: '#FFF4E6', ground: '#FFD9B0', ink: '#6B3F2A', accent: '#D9663A' },
+Starlight: { shell: '#B9CFF7', edge: '#7C98DA', bezel: '#F6F9FF', btn: '#FFC2DD', btnEdge: '#E07FAE', btnInk: '#6A2449', sky: '#2E2A66', ground: '#46408F', ink: '#FFF1B5', accent: '#8EE3D9' }
+};
+var th = themes[this.props.theme] || themes.Lilac;
+var on = th.ink;
+var off = 'transparent';
+var defs = [
+{ label: 'Focus', pose: 'Idle pose', mode: 'FOCUS', time: '18:24', pet: 'pet-idle', petLabel: 'Hare sitting', bar: '74%', p1: on, p2: on, p3: off, p4: off, pipLabel: 'Session 3 of 4', running: true, stopped: false, mainLabel: 'Pause' },
+{ label: 'Break', pose: 'Run pose', mode: 'BREAK', time: '04:12', pet: 'pet-run', petLabel: 'Hare running', bar: '84%', p1: on, p2: on, p3: on, p4: off, pipLabel: '3 of 4 sessions done', running: true, stopped: false, mainLabel: 'Pause' },
+{ label: 'Paused', pose: 'Back turned', mode: 'PAUSED', time: '18:24', pet: 'pet-back', petLabel: 'Hare turned away', bar: '74%', p1: on, p2: on, p3: off, p4: off, pipLabel: 'Session 3 of 4', running: false, stopped: true, mainLabel: 'Resume' },
+{ label: 'Session complete', pose: 'Jump pose', mode: 'DONE', time: '00:00', pet: 'pet-jump', petLabel: 'Hare leaping', bar: '0%', p1: on, p2: on, p3: on, p4: off, pipLabel: '3 of 4 sessions done', running: false, stopped: true, mainLabel: 'Start break' },
+{ label: 'Session skipped', pose: 'Hurt pose', mode: 'SKIPPED', time: '25:00', pet: 'pet-hurt', petLabel: 'Hare flashing red', bar: '100%', p1: on, p2: on, p3: off, p4: off, pipLabel: '2 of 4 sessions done', running: false, stopped: true, mainLabel: 'Start focus' }
+];
+return { states: defs.map(function (d) { return Object.assign({}, th, d); }) };
+}
+}
+</script>
+</body>
+</html>

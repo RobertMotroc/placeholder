@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Overlay on the desktop</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&amp;family=Pixelify+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.pet{background-image:url(/_blob/fdb70ff892869f1851e44f18da516aae);background-repeat:no-repeat;background-position:0 0;background-size:400% 100%;image-rendering:pixelated}
+</style>
+</helmet>
+<div style="position: relative; width: 1440px; height: 900px; overflow: hidden; background: #6F8479; display: flex; flex-direction: column; font-family: 'IBM Plex Sans', sans-serif">
+
+  <div aria-hidden="true" style="flex: 1; min-height: 0; display: flex; flex-direction: column; background: #FFFFFF">
+    <div style="height: 40px; box-sizing: border-box; padding: 0 16px 0 12px; background: #D5DCD6; display: flex; align-items: flex-end; gap: 4px">
+      <div style="width: 220px; height: 32px; box-sizing: border-box; padding: 0 12px; background: #F4F6F3; border-radius: 8px 8px 0 0; display: flex; align-items: center; gap: 10px">
+        <div style="width: 14px; height: 14px; border-radius: 50%; background: #9FB4C9"></div>
+        <div style="width: 124px; height: 8px; border-radius: 4px; background: #AEB9B1"></div>
+      </div>
+      <div style="width: 200px; height: 32px; box-sizing: border-box; padding: 0 12px; display: flex; align-items: center; gap: 10px">
+        <div style="width: 14px; height: 14px; border-radius: 50%; background: #B9C3BC"></div>
+        <div style="width: 96px; height: 8px; border-radius: 4px; background: #B9C3BC"></div>
+      </div>
+      <div style="width: 200px; height: 32px; box-sizing: border-box; padding: 0 12px; display: flex; align-items: center; gap: 10px">
+        <div style="width: 14px; height: 14px; border-radius: 50%; background: #B9C3BC"></div>
+        <div style="width: 132px; height: 8px; border-radius: 4px; background: #B9C3BC"></div>
+      </div>
+      <div style="margin-left: auto; height: 40px; display: flex; align-items: center; gap: 22px">
+        <div style="width: 12px; height: 2px; background: #7C8A81"></div>
+        <div style="width: 11px; height: 11px; box-sizing: border-box; border: 2px solid #7C8A81"></div>
+        <div style="width: 12px; height: 12px; box-sizing: border-box; border: 2px solid #7C8A81; border-radius: 50%"></div>
+      </div>
+    </div>
+
+    <div style="height: 44px; box-sizing: border-box; padding: 0 16px; background: #F4F6F3; border-bottom: 1px solid #DCE2DC; display: flex; align-items: center; gap: 14px">
+      <div style="width: 16px; height: 16px; border-radius: 50%; background: #C3CCC5"></div>
+      <div style="width: 16px; height: 16px; border-radius: 50%; background: #C3CCC5"></div>
+      <div style="width: 16px; height: 16px; border-radius: 50%; background: #C3CCC5"></div>
+      <div style="flex: 1; height: 28px; box-sizing: border-box; padding: 0 16px; border-radius: 14px; background: #E6EBE6; display: flex; align-items: center">
+        <div style="width: 280px; height: 8px; border-radius: 4px; background: #B4BEB6"></div>
+      </div>
+      <div style="width: 16px; height: 16px; border-radius: 50%; background: #C3CCC5"></div>
+    </div>
+
+    <div style="flex: 1; min-height: 0; box-sizing: border-box; padding: 36px 160px; display: flex; gap: 72px">
+      <div style="width: 640px; display: flex; flex-direction: column; gap: 30px">
+        <div style="height: 44px; box-sizing: border-box; padding: 0 20px; border: 1px solid #D5DCD6; border-radius: 22px; display: flex; align-items: center">
+          <div style="width: 230px; height: 10px; border-radius: 5px; background: #B4BEB6"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 180px; height: 8px; border-radius: 4px; background: #C9D1CB"></div>
+          <div style="width: 420px; height: 14px; border-radius: 7px; background: #9FB4C9"></div>
+          <div style="width: 600px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 520px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 220px; height: 8px; border-radius: 4px; background: #C9D1CB"></div>
+          <div style="width: 360px; height: 14px; border-radius: 7px; background: #9FB4C9"></div>
+          <div style="width: 580px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 440px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 160px; height: 8px; border-radius: 4px; background: #C9D1CB"></div>
+          <div style="width: 480px; height: 14px; border-radius: 7px; background: #9FB4C9"></div>
+          <div style="width: 610px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 560px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 200px; height: 8px; border-radius: 4px; background: #C9D1CB"></div>
+          <div style="width: 390px; height: 14px; border-radius: 7px; background: #9FB4C9"></div>
+          <div style="width: 590px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 380px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 190px; height: 8px; border-radius: 4px; background: #C9D1CB"></div>
+          <div style="width: 450px; height: 14px; border-radius: 7px; background: #9FB4C9"></div>
+          <div style="width: 600px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 500px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <div style="width: 170px; height: 8px; border-radius: 4px; background: #C9D1CB"></div>
+          <div style="width: 410px; height: 14px; border-radius: 7px; background: #9FB4C9"></div>
+          <div style="width: 570px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 460px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+        </div>
+      </div>
+      <div style="width: 360px; height: 330px; box-sizing: border-box; margin-top: 74px; border: 1px solid #E1E6E1; border-radius: 12px; overflow: hidden; display: flex; flex-direction: column">
+        <div style="height: 170px; background: #E6EBE6"></div>
+        <div style="padding: 22px; display: flex; flex-direction: column; gap: 12px">
+          <div style="width: 200px; height: 14px; border-radius: 7px; background: #C3CCC5"></div>
+          <div style="width: 310px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 290px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+          <div style="width: 240px; height: 8px; border-radius: 4px; background: #DDE3DE"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 48px; box-sizing: border-box; padding: 0 18px; background: #161C19; display: flex; align-items: center; gap: 10px">
+    <div aria-hidden="true" style="display: flex; align-items: center; gap: 10px">
+      <div style="width: 28px; height: 28px; border-radius: 6px; background: #2A332E"></div>
+      <div style="width: 28px; height: 28px; border-radius: 6px; background: #46544C"></div>
+      <div style="width: 28px; height: 28px; border-radius: 6px; background: #2A332E"></div>
+      <div style="width: 28px; height: 28px; border-radius: 6px; background: #2A332E"></div>
+    </div>
+    <div style="margin-left: auto; display: flex; align-items: center; gap: 14px">
+      <div aria-hidden="true" style="width: 14px; height: 14px; border-radius: 3px; background: #3B4740"></div>
+      <div aria-hidden="true" style="width: 14px; height: 14px; border-radius: 3px; background: #3B4740"></div>
+      <img src="/_blob/92fe2001fb6c61bee48b01c0be790603" alt="Pomodoro tray icon" style="width: 24px; height: 24px; image-rendering: pixelated">
+      <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: flex-end; gap: 6px">
+        <div style="width: 40px; height: 6px; border-radius: 3px; background: #46544C"></div>
+        <div style="width: 58px; height: 6px; border-radius: 3px; background: #46544C"></div>
+      </div>
+    </div>
+  </div>
+
+  <div style="position: absolute; right: 32px; bottom: 76px; width: 200px; height: 236px; box-sizing: border-box; padding-top: 37px; background: {{shell}}; border: 3px solid {{edge}}; border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%; box-shadow: 0 5px 0 {{edge}}, 0 14px 20px rgba(40, 30, 70, 0.22); display: flex; flex-direction: column; align-items: center; gap: 12px">
+    <div aria-hidden="true" style="position: absolute; left: 34px; top: 14px; width: 44px; height: 14px; border-radius: 50%; background: rgba(255, 255, 255, 0.55); transform: rotate(-24deg)"></div>
+    <div style="width: 148px; height: 132px; box-sizing: border-box; padding: 5px; background: {{bezel}}; border: 3px solid {{edge}}; border-radius: 18px; flex-shrink: 0">
+      <div style="position: relative; width: 132px; height: 116px; overflow: hidden; border-radius: 10px; background: {{sky}}; color: {{ink}}; font-family: 'Pixelify Sans', monospace; font-weight: 600">
+        <div style="position: absolute; left: 8px; right: 8px; top: 6px; display: flex; align-items: center; justify-content: space-between; font-size: 11px; line-height: 1; letter-spacing: 0.06em">
+          <span>FOCUS</span>
+          <span role="img" aria-label="Session 3 of 4" style="display: flex; gap: 3px">
+            <span style="width: 6px; height: 6px; box-sizing: border-box; border: 1px solid {{ink}}; background: {{ink}}"></span>
+            <span style="width: 6px; height: 6px; box-sizing: border-box; border: 1px solid {{ink}}; background: {{ink}}"></span>
+            <span style="width: 6px; height: 6px; box-sizing: border-box; border: 1px solid {{ink}}"></span>
+            <span style="width: 6px; height: 6px; box-sizing: border-box; border: 1px solid {{ink}}"></span>
+          </span>
+        </div>
+        <div style="position: absolute; left: 0; right: 0; top: 19px; text-align: center; font-size: 30px; line-height: 1">18:24</div>
+        <div aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 12px; background: {{ground}}">
+          <div style="width: 74%; height: 3px; background: {{accent}}"></div>
+        </div>
+        <div class="pet" role="img" aria-label="Hare sitting on the timer screen" style="position: absolute; left: 34px; bottom: 8px; width: 64px; height: 64px"></div>
+      </div>
+    </div>
+    <div style="display: flex; gap: 12px">
+      <button type="button" aria-label="Pause" style="width: 28px; height: 28px; box-sizing: border-box; padding: 0; background: {{btn}}; border: 3px solid {{btnEdge}}; border-radius: 50%; color: {{btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="2" y="2" width="3" height="8"></rect><rect x="7" y="2" width="3" height="8"></rect></svg>
+      </button>
+      <button type="button" aria-label="Skip to break" style="width: 28px; height: 28px; box-sizing: border-box; margin-top: 6px; padding: 0; background: {{btn}}; border: 3px solid {{btnEdge}}; border-radius: 50%; color: {{btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="2" width="2" height="8"></rect><rect x="3" y="3" width="2" height="6"></rect><rect x="5" y="4" width="1" height="4"></rect><rect x="6" y="5" width="1" height="2"></rect><rect x="8" y="2" width="2" height="8"></rect></svg>
+      </button>
+      <button type="button" aria-label="Open settings" style="width: 28px; height: 28px; box-sizing: border-box; padding: 0; background: {{btn}}; border: 3px solid {{btnEdge}}; border-radius: 50%; color: {{btnInk}}; display: flex; align-items: center; justify-content: center; cursor: pointer">
+        <svg aria-hidden="true" width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><rect x="1" y="2" width="10" height="2"></rect><rect x="7" y="1" width="2" height="4"></rect><rect x="1" y="8" width="10" height="2"></rect><rect x="3" y="7" width="2" height="4"></rect></svg>
+      </button>
+    </div>
+  </div>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"theme":{"editor":"enum","options":["Lilac","Mint","Peach","Starlight"],"default":"Lilac"},"$preview":{"width":1440,"height":900}}'>
+class Component extends DCLogic {
+renderVals() {
+var themes = {
+Lilac: { shell: '#CDB8F6', edge: '#9A80D8', bezel: '#FFF6FC', btn: '#F9A1CF', btnEdge: '#D45F9C', btnInk: '#5A2348', sky: '#FBEFFF', ground: '#D9C2F7', ink: '#4B3A78', accent: '#C2559A' },
+Mint: { shell: '#B8EBD4', edge: '#6FBF9F', bezel: '#FBFFF8', btn: '#FFE08A', btnEdge: '#D9A93A', btnInk: '#5A4410', sky: '#EFFBF1', ground: '#BFE8C6', ink: '#2F5A4A', accent: '#23896A' },
+Peach: { shell: '#FFD0B8', edge: '#E89A78', bezel: '#FFFBF4', btn: '#A9DDF2', btnEdge: '#5FA9C9', btnInk: '#1F4A5E', sky: '#FFF4E6', ground: '#FFD9B0', ink: '#6B3F2A', accent: '#D9663A' },
+Starlight: { shell: '#B9CFF7', edge: '#7C98DA', bezel: '#F6F9FF', btn: '#FFC2DD', btnEdge: '#E07FAE', btnInk: '#6A2449', sky: '#2E2A66', ground: '#46408F', ink: '#FFF1B5', accent: '#8EE3D9' }
+};
+return themes[this.props.theme] || themes.Lilac;
+}
+}
+</script>
+</body>
+</html>

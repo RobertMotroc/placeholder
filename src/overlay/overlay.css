@@ -1,0 +1,184 @@
+/* Device at Medium size. Dimensions from docs/DESIGN.md §1; colours only from theme variables. */
+
+html,
+body,
+#root {
+  margin: 0;
+  height: 100%;
+  background: transparent;
+  overflow: hidden;
+}
+
+body {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* 24px of room at the sides and bottom for the drop shadow (window is 248 x 284). */
+#root {
+  box-sizing: border-box;
+  padding: 12px 24px 0;
+}
+
+.shell {
+  position: relative;
+  width: 200px;
+  height: 236px;
+  box-sizing: border-box;
+  padding-top: 37px;
+  background: var(--shell);
+  border: 3px solid var(--edge);
+  border-radius: 50% 50% 50% 50% / 55% 55% 45% 45%;
+  box-shadow:
+    0 5px 0 var(--edge),
+    0 14px 20px rgba(40, 30, 70, 0.22);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: grab;
+}
+
+.gloss {
+  position: absolute;
+  left: 34px;
+  top: 14px;
+  width: 44px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  transform: rotate(-24deg);
+  pointer-events: none;
+}
+
+.bezel {
+  width: 148px;
+  height: 132px;
+  box-sizing: border-box;
+  flex-shrink: 0;
+  padding: 5px;
+  background: var(--bezel);
+  border: 3px solid var(--edge);
+  border-radius: 18px;
+}
+
+.screen {
+  position: relative;
+  width: 132px;
+  height: 116px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: var(--sky);
+  color: var(--ink);
+  /* Press Start 2P has one weight and is drawn on an 8px grid: keep sizes at multiples of 8. */
+  font-family: 'Press Start 2P', monospace;
+  font-weight: 400;
+  -webkit-font-smoothing: none;
+}
+
+.status {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  top: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 8px;
+  line-height: 1;
+}
+
+.pips {
+  display: flex;
+  gap: 3px;
+}
+
+.pip {
+  width: 6px;
+  height: 6px;
+  box-sizing: border-box;
+  border: 1px solid var(--ink);
+}
+
+.pip.done {
+  background: var(--ink);
+}
+
+.timer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22px;
+  text-align: center;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.ground {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 12px;
+  background: var(--ground);
+}
+
+.progress {
+  height: 3px;
+  background: var(--accent);
+}
+
+.pet-slot {
+  position: absolute;
+  left: 34px;
+  bottom: 8px;
+}
+
+.pet-box {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.pet {
+  background-repeat: no-repeat;
+  image-rendering: pixelated;
+}
+
+.buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.device-btn {
+  width: 28px;
+  height: 28px;
+  box-sizing: border-box;
+  padding: 0;
+  background: var(--btn);
+  border: 3px solid var(--btnEdge);
+  border-radius: 50%;
+  color: var(--btnInk);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.device-btn.middle {
+  margin-top: 6px;
+}
+
+.device-btn:hover {
+  filter: brightness(1.06);
+}
+
+.device-btn:active {
+  transform: translateY(2px);
+  filter: brightness(0.94);
+}
+
+.device-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}

@@ -1,0 +1,40 @@
+{
+  "id": "fox",
+  "name": "Fox",
+  "frameSize": 32,
+  "directions": [
+    "front",
+    "back",
+    "left",
+    "right"
+  ],
+  "animations": {
+    "idle": {
+      "file": "idle.png",
+      "frames": 4,
+      "fps": 6.67
+    },
+    "walk": {
+      "file": "walk.png",
+      "frames": 6,
+      "fps": 6.67
+    },
+    "run": {
+      "file": "run.png",
+      "frames": 6,
+      "fps": 6.67
+    },
+    "hurt": {
+      "file": "hurt.png",
+      "frames": 4,
+      "fps": 6.67
+    }
+  },
+  "states": {
+    "focus": "idle",
+    "break": "walk",
+    "complete": "run",
+    "skipped": "hurt",
+    "paused": "idle"
+  }
+}
