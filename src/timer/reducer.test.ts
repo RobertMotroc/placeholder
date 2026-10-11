@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { defaultConfig, initialTimerState, timerReducer } from './reducer';
 import type { TimerAction, TimerState } from './types';
-import { formatTime, remainingMs, timerView } from './view';
+import { formatTime, remainingMs, timerView, trayStatus } from './view';
 
 const MIN = 60_000;
 const T0 = 1_000_000;
@@ -116,6 +116,29 @@ describe('timerReducer', () => {
     const s = finishSession(initialTimerState(config), T0);
     expect(initialTimerState(config).remainingMs).toBe(50 * MIN);
     expect(s.remainingMs).toBe(10 * MIN);
+  });
+});
+
+describe('tray text', () => {
+  const view = (s: TimerState, now = T0) => timerView(s, now);
+
+  it('says what the timer is doing, e.g. "Focus, 18:24 left"', () => {
+    const running = run([{ type: 'play', now: T0 }]);
+    expect(trayStatus(view(running, T0 + 6 * MIN + 36_000))).toBe('Focus, 18:24 left');
+    expect(trayStatus(view(timerReducer(running, { type: 'pause', now: T0 + 7 * MIN })))).toBe('Paused, 18:00 left');
+    expect(trayStatus(view(initialTimerState()))).toBe('Ready: Focus, 25:00');
+  });
+
+  it('names the queued session after Done and Skipped', () => {
+    expect(trayStatus(view(finishSession(initialTimerState(), T0)))).toBe('Session done. Break next');
+    expect(trayStatus(view(run([{ type: 'skip' }])))).toBe('Skipped. Break next');
+    const atLast: TimerState = { ...initialTimerState(), completedFocus: 3 };
+    expect(trayStatus(view(finishSession(atLast, T0)))).toBe('Session done. Long break next');
+  });
+
+  it('labels skip by where it leads', () => {
+    expect(view(initialTimerState()).skipLabel).toBe('Skip to break');
+    expect(view(finishSession(initialTimerState(), T0)).skipLabel).toBe('Skip to focus');
   });
 });
 

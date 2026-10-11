@@ -44,18 +44,19 @@ function Icon({ name }: { name: keyof typeof icons }) {
 interface DeviceButtonsProps {
   running: boolean;
   playLabel: string;
+  skipLabel: string;
   onPlayPause?: () => void;
   onSkip?: () => void;
   onSettings?: () => void;
 }
 
-export function DeviceButtons({ running, playLabel, onPlayPause, onSkip, onSettings }: DeviceButtonsProps) {
+export function DeviceButtons({ running, playLabel, skipLabel, onPlayPause, onSkip, onSettings }: DeviceButtonsProps) {
   return (
     <div className="buttons">
       <button type="button" className="device-btn" aria-label={running ? 'Pause' : playLabel} onClick={onPlayPause}>
         <Icon name={running ? 'pause' : 'play'} />
       </button>
-      <button type="button" className="device-btn middle" aria-label="Skip session" onClick={onSkip}>
+      <button type="button" className="device-btn middle" aria-label={skipLabel} onClick={onSkip}>
         <Icon name="skip" />
       </button>
       <button type="button" className="device-btn" aria-label="Open settings" onClick={onSettings}>

@@ -41,6 +41,7 @@ export function useTimer(config: TimerConfig = defaultConfig) {
     dispatch({ type: 'toggle', now: t });
   }, []);
   const skip = useCallback(() => dispatch({ type: 'skip' }), []);
+  const reset = useCallback(() => dispatch({ type: 'reset' }), []);
 
-  return { view: timerView(state, now), playPause, skip };
+  return { view: timerView(state, now), playPause, skip, reset };
 }

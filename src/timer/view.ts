@@ -1,5 +1,5 @@
 import { durationMs } from './reducer';
-import type { PetStateKey, TimerState } from './types';
+import type { PetStateKey, SessionKind, TimerState } from './types';
 
 export interface TimerView {
   modeLabel: string;
@@ -9,6 +9,8 @@ export interface TimerView {
   sessionsPerCycle: number;
   running: boolean;
   playLabel: string; // accessible label for the play/pause button
+  skipLabel: string; // "Skip to break" / "Skip to focus"
+  sessionName: string; // the running or queued session: "Focus", "Break", "Long break"
   petState: PetStateKey;
   // Set when petState is a one-shot reaction: the pose to loop once it has played.
   petThen?: PetStateKey;
@@ -30,6 +32,22 @@ export function formatTime(ms: number): string {
   return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
 }
 
+const sessionNames: Record<SessionKind, string> = { focus: 'Focus', shortBreak: 'Break', longBreak: 'Long break' };
+
+// One-line status for the tray tooltip, e.g. "Focus, 18:24 left" (docs/DESIGN.md §5).
+export function trayStatus(view: TimerView): string {
+  switch (view.modeLabel) {
+    case 'PAUSED':
+      return `Paused, ${view.time} left`;
+    case 'DONE':
+      return `Session done. ${view.sessionName} next`;
+    case 'SKIPPED':
+      return `Skipped. ${view.sessionName} next`;
+    default:
+      return view.running ? `${view.sessionName}, ${view.time} left` : `Ready: ${view.sessionName}, ${view.time}`;
+  }
+}
+
 // What the overlay shows for a timer state (docs/DESIGN.md §2).
 export function timerView(state: TimerState, now: number): TimerView {
   const isFocus = state.kind === 'focus';
@@ -40,6 +58,8 @@ export function timerView(state: TimerState, now: number): TimerView {
     running: state.status === 'running',
     petDirection: 'left' as const,
     phaseKey: `${state.status}-${state.kind}-${state.completedFocus}`,
+    skipLabel: isFocus ? 'Skip to break' : 'Skip to focus',
+    sessionName: sessionNames[state.kind],
   };
   const startLabel = isFocus ? 'Start focus' : 'Start break';
 

@@ -1,21 +1,22 @@
 import type { MouseEvent } from 'react';
 import { showOverlayMenu, startDragging } from '../lib/window';
+import type { TimerView } from '../timer/view';
 import { DeviceButtons } from './DeviceButtons';
 import { Screen } from './Screen';
-import { useReducedMotion } from './useReducedMotion';
-import { useTimer } from './useTimer';
 
 interface DeviceProps {
-  animatePet?: boolean; // the "Animate the pet" setting (milestone 5)
+  view: TimerView;
+  petId: string;
+  animatePet: boolean;
+  locked: boolean; // "Lock position": the shell no longer drags the window
+  onPlayPause: () => void;
+  onSkip: () => void;
 }
 
 // The egg-shaped shell. Any primary-button press outside the buttons drags the window.
-export function Device({ animatePet = true }: DeviceProps) {
-  const { view, playPause, skip } = useTimer();
-  const reducedMotion = useReducedMotion();
-
+export function Device({ view, petId, animatePet, locked, onPlayPause, onSkip }: DeviceProps) {
   const onMouseDown = (e: MouseEvent) => {
-    if (e.button !== 0 || (e.target as Element).closest('button')) return;
+    if (locked || e.button !== 0 || (e.target as Element).closest('button')) return;
     startDragging();
   };
 
@@ -25,11 +26,17 @@ export function Device({ animatePet = true }: DeviceProps) {
   };
 
   return (
-    <div className="shell" onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
+    <div className={locked ? 'shell locked' : 'shell'} onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
       <div className="gloss" aria-hidden="true" />
-      <Screen petId="hare" view={view} animatePet={animatePet && !reducedMotion} />
+      <Screen petId={petId} view={view} animatePet={animatePet} />
       {/* Settings opens the settings window, which arrives in milestone 5. */}
-      <DeviceButtons running={view.running} playLabel={view.playLabel} onPlayPause={playPause} onSkip={skip} />
+      <DeviceButtons
+        running={view.running}
+        playLabel={view.playLabel}
+        skipLabel={view.skipLabel}
+        onPlayPause={onPlayPause}
+        onSkip={onSkip}
+      />
     </div>
   );
 }

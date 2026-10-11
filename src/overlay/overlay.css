@@ -39,6 +39,10 @@ body {
   cursor: grab;
 }
 
+.shell.locked {
+  cursor: default;
+}
+
 .gloss {
   position: absolute;
   left: 34px;

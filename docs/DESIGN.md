@@ -177,6 +177,16 @@ Items, with dividers between groups:
 
 The mockup styles this as a pastel rounded panel. Build it as a native menu first; the header becomes the tray tooltip.
 
+As built (native menu, `src/lib/tray.ts`):
+
+- **Tooltip**: "Pomodoro" plus a status line: "Focus, 18:24 left", "Paused, 18:00 left", "Session done. Break next", "Skipped. Break next", "Ready: Focus, 25:00".
+- **Left click** on the icon shows or hides the overlay. **Right click** opens the menu.
+- The first item follows the play button: Start focus / Start break / Pause / Resume. The skip item reads "Skip to break" or "Skip to focus".
+- **Change pet** is a submenu with every pet in the registry, the current one ticked.
+- **Settings** is disabled until the settings window exists (milestone 5).
+- Always on top, Lock position and the pet are saved settings. Show overlay is not saved: the overlay always appears on launch.
+- Windows 11 puts a new app's tray icon in the overflow area (the ^ arrow). The user can drag it onto the taskbar.
+
 ## 6. Settings window
 
 Width 520. Surface `bezel`, `3px solid edge` outline, radius 22, lip shadow `0 6px 0 edge`. Title bar 56 tall in `shell` with the pet icon, "Settings" (Press Start 2P 16px) and a 44 x 44 close button. Body text is Nunito 15px, weight 700, colour `text`. Section headings are Press Start 2P 8px, colour `sub`. Rows are at least 44px tall.

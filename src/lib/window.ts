@@ -1,21 +1,37 @@
 import { getCurrentWindow } from '@tauri-apps/api/window';
 import { Menu } from '@tauri-apps/api/menu';
 
-// Needs `core:window:allow-start-dragging` in src-tauri/capabilities/default.json.
+// Each call needs its permission in src-tauri/capabilities/default.json.
+
+const logError = (what: string) => (err: unknown) => console.error(`${what} failed`, err);
+
+// core:window:allow-start-dragging
 export function startDragging(): void {
-  getCurrentWindow()
-    .startDragging()
-    .catch((err) => console.error('startDragging failed', err));
+  getCurrentWindow().startDragging().catch(logError('startDragging'));
 }
 
-// Closing the only window exits the app. Needs `core:window:allow-close`.
+// core:window:allow-close. Closing the only window exits the app (the tray goes with it).
 export function quitApp(): void {
-  getCurrentWindow()
-    .close()
-    .catch((err) => console.error('close failed', err));
+  getCurrentWindow().close().catch(logError('close'));
 }
 
-// Native right-click menu on the overlay. Stopgap until the tray menu (milestone 4).
+// core:window:allow-show / allow-hide / allow-set-focus
+export async function setOverlayVisible(visible: boolean): Promise<void> {
+  const win = getCurrentWindow();
+  if (visible) {
+    await win.show();
+    await win.setFocus();
+  } else {
+    await win.hide();
+  }
+}
+
+// core:window:allow-set-always-on-top
+export function setAlwaysOnTop(on: boolean): void {
+  getCurrentWindow().setAlwaysOnTop(on).catch(logError('setAlwaysOnTop'));
+}
+
+// Right-click menu on the overlay itself; the tray menu has the full set.
 export async function showOverlayMenu(): Promise<void> {
   const menu = await Menu.new({
     items: [{ id: 'quit', text: 'Quit Pomodoro', action: quitApp }],
