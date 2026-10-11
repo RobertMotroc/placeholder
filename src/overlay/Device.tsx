@@ -2,11 +2,17 @@ import type { MouseEvent } from 'react';
 import { showOverlayMenu, startDragging } from '../lib/window';
 import { DeviceButtons } from './DeviceButtons';
 import { Screen } from './Screen';
+import { useReducedMotion } from './useReducedMotion';
 import { useTimer } from './useTimer';
 
+interface DeviceProps {
+  animatePet?: boolean; // the "Animate the pet" setting (milestone 5)
+}
+
 // The egg-shaped shell. Any primary-button press outside the buttons drags the window.
-export function Device() {
+export function Device({ animatePet = true }: DeviceProps) {
   const { view, playPause, skip } = useTimer();
+  const reducedMotion = useReducedMotion();
 
   const onMouseDown = (e: MouseEvent) => {
     if (e.button !== 0 || (e.target as Element).closest('button')) return;
@@ -21,7 +27,7 @@ export function Device() {
   return (
     <div className="shell" onMouseDown={onMouseDown} onContextMenu={onContextMenu}>
       <div className="gloss" aria-hidden="true" />
-      <Screen petId="hare" view={view} />
+      <Screen petId="hare" view={view} animatePet={animatePet && !reducedMotion} />
       {/* Settings opens the settings window, which arrives in milestone 5. */}
       <DeviceButtons running={view.running} playLabel={view.playLabel} onPlayPause={playPause} onSkip={skip} />
     </div>

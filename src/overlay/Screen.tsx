@@ -13,9 +13,10 @@ const petActions: Record<TimerView['petState'], string> = {
 interface ScreenProps {
   petId: string;
   view: TimerView;
+  animatePet: boolean;
 }
 
-export function Screen({ petId, view }: ScreenProps) {
+export function Screen({ petId, view, animatePet }: ScreenProps) {
   const pet = getPet(petId);
   const pipsLabel = `Session ${Math.min(view.sessionsDone + 1, view.sessionsPerCycle)} of ${view.sessionsPerCycle}`;
 
@@ -38,11 +39,15 @@ export function Screen({ petId, view }: ScreenProps) {
         </div>
         <div className="pet-slot">
           <Pet
+            key={view.phaseKey}
             pet={pet}
             animation={pet.states[view.petState]}
+            // Done and Skipped are one-shot reactions that then settle into a pose (docs/DESIGN.md §2).
+            thenAnimation={view.petThen ? pet.states[view.petThen] : undefined}
             direction={view.petDirection}
             box={64}
             label={`${pet.name} ${petActions[view.petState]}`}
+            animate={animatePet}
           />
         </div>
       </div>

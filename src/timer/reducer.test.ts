@@ -158,18 +158,51 @@ describe('timerView: the five states from docs/DESIGN.md §2', () => {
     });
   });
 
-  it('Session complete', () => {
+  it('Session complete shows the next session in full; the pet celebrates, then takes the break pose', () => {
     const s = finishSession(initialTimerState(), T0);
     expect(timerView(s, T0 + 25 * MIN)).toMatchObject({
-      modeLabel: 'DONE', time: '00:00', progress: 0, running: false, playLabel: 'Start break', petState: 'complete', sessionsDone: 1,
+      modeLabel: 'DONE', time: '05:00', progress: 1, running: false, playLabel: 'Start break',
+      petState: 'complete', petThen: 'break', sessionsDone: 1,
     });
   });
 
-  it('Session skipped shows the next full session', () => {
+  it('a completed break shows the next focus in full; the pet celebrates, then idles', () => {
+    const s = finishSession(finishSession(initialTimerState(), T0), T0 + 30 * MIN);
+    expect(timerView(s, T0 + 60 * MIN)).toMatchObject({
+      modeLabel: 'DONE', time: '25:00', playLabel: 'Start focus', petState: 'complete', petThen: 'focus',
+    });
+  });
+
+  it('the fourth focus session shows the long break in full', () => {
+    const atLast: TimerState = { ...initialTimerState(), completedFocus: 3 };
+    expect(timerView(finishSession(atLast, T0), T0 + 25 * MIN)).toMatchObject({ modeLabel: 'DONE', time: '15:00', petThen: 'break' });
+  });
+
+  it('Session skipped (focus) shows the next full session and the hurt reaction', () => {
+    const s = run([{ type: 'play', now: T0 }, { type: 'skip' }]);
+    expect(timerView(s, T0)).toMatchObject({
+      modeLabel: 'SKIPPED', time: '05:00', progress: 1, running: false, playLabel: 'Start break', petState: 'skipped', petThen: 'focus',
+    });
+  });
+
+  it('skipping a break shows SKIPPED without the hurt reaction', () => {
     const s = run([{ type: 'skip' }], finishSession(initialTimerState(), T0));
     expect(timerView(s, T0)).toMatchObject({
-      modeLabel: 'SKIPPED', time: '25:00', progress: 1, running: false, playLabel: 'Start focus', petState: 'skipped',
+      modeLabel: 'SKIPPED', time: '25:00', progress: 1, running: false, playLabel: 'Start focus', petState: 'focus',
     });
+    expect(timerView(s, T0).petThen).toBeUndefined();
+  });
+
+  it('skipping the long break shows no hurt reaction either', () => {
+    const atLongBreak: TimerState = { ...initialTimerState(), kind: 'longBreak', status: 'complete', completedFocus: 4 };
+    expect(timerView(run([{ type: 'skip' }], atLongBreak), T0).petState).toBe('focus');
+  });
+
+  it('phaseKey changes on every transition, including two skips in a row', () => {
+    const once = run([{ type: 'skip' }]);
+    const twice = timerReducer(once, { type: 'skip' });
+    expect(timerView(once, T0).phaseKey).not.toBe(timerView(twice, T0).phaseKey);
+    expect(timerView(initialTimerState(), T0).phaseKey).not.toBe(timerView(run([{ type: 'play', now: T0 }]), T0).phaseKey);
   });
 
   it('idle before the first session', () => {

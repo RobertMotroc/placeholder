@@ -145,6 +145,22 @@ body {
   image-rendering: pixelated;
 }
 
+/* Timing, steps and iteration count are set inline per animation (src/pets/sprite.ts). */
+@keyframes pet-frames {
+  from {
+    background-position-x: 0%;
+  }
+  to {
+    background-position-x: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pet {
+    animation: none !important;
+  }
+}
+
 .buttons {
   display: flex;
   gap: 12px;

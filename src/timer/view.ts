@@ -10,7 +10,11 @@ export interface TimerView {
   running: boolean;
   playLabel: string; // accessible label for the play/pause button
   petState: PetStateKey;
+  // Set when petState is a one-shot reaction: the pose to loop once it has played.
+  petThen?: PetStateKey;
   petDirection: 'left' | 'back';
+  // Changes on every state transition (e.g. two skips in a row), so the pet can restart its animation.
+  phaseKey: string;
 }
 
 export function remainingMs(state: TimerState, now: number): number {
@@ -35,6 +39,7 @@ export function timerView(state: TimerState, now: number): TimerView {
     sessionsPerCycle: state.config.sessionsPerCycle,
     running: state.status === 'running',
     petDirection: 'left' as const,
+    phaseKey: `${state.status}-${state.kind}-${state.completedFocus}`,
   };
   const startLabel = isFocus ? 'Start focus' : 'Start break';
 
@@ -59,9 +64,26 @@ export function timerView(state: TimerState, now: number): TimerView {
         petDirection: 'back',
       };
     case 'complete':
-      return { ...base, modeLabel: 'DONE', time: '00:00', progress: 0, playLabel: startLabel, petState: 'complete' };
+      // Shows the queued session's full time; the pet celebrates once, then takes that session's pose.
+      return {
+        ...base,
+        modeLabel: 'DONE',
+        time: formatTime(left),
+        progress: 1,
+        playLabel: startLabel,
+        petState: 'complete',
+        petThen: isFocus ? 'focus' : 'break',
+      };
     case 'skipped':
-      return { ...base, modeLabel: 'SKIPPED', time: formatTime(left), progress: 1, playLabel: startLabel, petState: 'skipped' };
+      // Only skipping focus gets the hurt reaction. A skipped break queues focus, so the pet just idles.
+      return {
+        ...base,
+        modeLabel: 'SKIPPED',
+        time: formatTime(left),
+        progress: 1,
+        playLabel: startLabel,
+        ...(isFocus ? { petState: 'focus' as const } : { petState: 'skipped' as const, petThen: 'focus' as const }),
+      };
     case 'idle':
       return {
         ...base,

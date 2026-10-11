@@ -75,7 +75,7 @@ Pet scale = `floor(box / frameSize)`, never a fraction:
 | Focus | `FOCUS` | time left | idle | pause |
 | Break | `BREAK` | time left | walk | pause |
 | Paused | `PAUSED` | frozen time left | idle, back turned | play |
-| Session complete | `DONE` | `00:00` | run | play (starts the break) |
+| Session complete | `DONE` | next full session, e.g. `05:00` | run once, then the next session's pose (walk before a break, idle before focus) | play (starts the next session) |
 | Session skipped | `SKIPPED` | next full session, e.g. `25:00` | hurt (red flash) | play |
 
 Each pet's manifest maps these states to its own animations (`states` in `manifest.json`), so pets without a run or hurt animation still work.
@@ -83,7 +83,7 @@ Each pet's manifest maps these states to its own animations (`states` in `manife
 Notes:
 
 - The pet faces left in every state except Paused, which uses the back view.
-- "Skipped" is a brief reaction. After the hurt animation plays once, fall back to the idle pose; the skipped session does not fill a pip.
+- "Skipped" is a brief reaction. Skipping a focus session plays the hurt animation once, then falls back to the idle pose. Skipping a break shows `SKIPPED` with the idle pose and no hurt reaction. A skipped session never fills a pip.
 - A long break replaces the short break after every fourth focus session, then the pips reset (after the long break ends or is skipped).
 - Nothing starts on its own. After a session completes or is skipped, the next one waits for play.
 - Before the first session (and after Reset session) the device shows the queued session idle: `FOCUS` / `25:00`, play button labeled "Start focus", full progress line.
@@ -128,15 +128,17 @@ CSS pattern for a sheet of N frames x 4 rows in a box of any size:
   background-size: calc(N * 100%) 400%;
   background-position-y: calc(row / 3 * 100%);
   image-rendering: pixelated;
-  animation: pet-frames calc(N / fps * 1s) steps(N) infinite;
+  animation: pet-frames calc(N / fps * 1s) steps(N, jump-none) infinite;
 }
 @keyframes pet-frames {
-  from { background-position-x: 0; }
-  to   { background-position-x: calc(N / (N - 1) * 100%); }
+  from { background-position-x: 0%; }
+  to   { background-position-x: 100%; }
 }
 ```
 
-For example, the hare's 4-frame idle sheet facing left uses `background-size: 400% 400%`, `background-position-y: 66.6667%`, and animates x to `133.3333%`. A static pose is one frame: frame `k` sits at `background-position-x: calc(k / (N - 1) * 100%)`.
+`steps(N, jump-none)` from 0% to 100% stops exactly on each frame `k` at `k / (N - 1) * 100%`, each for an equal share of the duration, and ends on the last frame. That last part matters for one-shots: the Skipped reaction uses `animation-iteration-count: 1` with `animation-fill-mode: forwards`, then switches to idle on `animationend`. For example, the hare's 4-frame idle sheet facing left uses `background-size: 400% 400%` and `background-position-y: 66.6667%`. A static pose is one frame: frame `k` sits at `background-position-x: calc(k / (N - 1) * 100%)`. The code is in `src/pets/sprite.ts`.
+
+With `prefers-reduced-motion` (Windows "Animation effects" off) or "Animate the pet" off, every state shows frame 0 of its animation, and Skipped shows the idle pose straight away.
 
 Image references in the mockup sources map to these files. The mockup was drawn with older, rebuilt art, so its "run" is now `walk` and its "jump" is now `run`:
 
